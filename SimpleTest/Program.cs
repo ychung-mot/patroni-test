@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Threading;
 
-namespace SimpleInsert
+namespace SimpleTest
 {
     class Program
     {
@@ -12,20 +12,20 @@ namespace SimpleInsert
         {
             var context = new HetsContext(GetConnectionString());
 
-            Console.WriteLine("Test started");
+            Console.WriteLine("Test started.");
             UpdateSurname(context);
-            Console.WriteLine("Test finished");
+            Console.WriteLine("Test finished and sleeping 1 hour.");
+            
+            Thread.Sleep(_seconds * 60 * 1000);
         }
 
         static void UpdateSurname(HetsContext context)
         {
             using (IDbContextTransaction transaction = context.Database.BeginTransaction())
             {
-                context.Database.ExecuteSqlCommand(@"LOCK TABLE ""HET_USER"" IN EXCLUSIVE MODE;");
-
                 var surname = "CHUNG-" + DateTime.Now.ToString("hh:mm:ss");
 
-                Console.WriteLine($"Updating surname to {surname}");
+                Console.WriteLine($"Updating surname to {surname}.");
                 var count = context.Database.ExecuteSqlCommand($@"
                     UPDATE ""HET_USER"" 
                     SET ""SURNAME"" = {surname}, 
@@ -46,8 +46,9 @@ namespace SimpleInsert
             string username = Environment.GetEnvironmentVariable("POSTGRESQL_USER");
             string password = Environment.GetEnvironmentVariable("POSTGRESQL_PASSWORD");
             string database = Environment.GetEnvironmentVariable("POSTGRESQL_DATABASE");
+            string port = Environment.GetEnvironmentVariable("POSTGRESQL_PORT");
 
-            return $"Host={host};Username={username};Password={password};Database={database};";
+            return $"Host={host};Username={username};Password={password};Port={port};Database={database};";
         }
     }
 }
