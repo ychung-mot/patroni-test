@@ -12,7 +12,9 @@ namespace SimpleInsert
         {
             var context = new HetsContext(GetConnectionString());
 
-            UpdateSurname(context);            
+            Console.WriteLine("Test started");
+            UpdateSurname(context);
+            Console.WriteLine("Test finished");
         }
 
         static void UpdateSurname(HetsContext context)
@@ -21,8 +23,9 @@ namespace SimpleInsert
             {
                 context.Database.ExecuteSqlCommand(@"LOCK TABLE ""HET_USER"" IN EXCLUSIVE MODE;");
 
-                var surname = "CHUNG" + DateTime.Now.ToString("hh:MM:ss");
+                var surname = "CHUNG-" + DateTime.Now.ToString("hh:mm:ss");
 
+                Console.WriteLine($"Updating surname to {surname}");
                 var count = context.Database.ExecuteSqlCommand($@"
                     UPDATE ""HET_USER"" 
                     SET ""SURNAME"" = {surname}, 
@@ -30,6 +33,7 @@ namespace SimpleInsert
                     WHERE ""SM_USER_ID"" = 'YCHUNG' 
                 ");
 
+                Console.WriteLine($"Sleeping {_seconds} seconds.");
                 Thread.Sleep(_seconds * 1000);
 
                 transaction.Commit();
