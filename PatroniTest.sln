@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInsert", "SimpleInsert\SimpleInsert.csproj", "{3973450B-E877-49B2-ADD1-E7CFFCA80E28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3973450B-E877-49B2-ADD1-E7CFFCA80E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3973450B-E877-49B2-ADD1-E7CFFCA80E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3973450B-E877-49B2-ADD1-E7CFFCA80E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3973450B-E877-49B2-ADD1-E7CFFCA80E28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3FCF90F-94E1-4E33-BEE9-3115D8685E7A}
+	EndGlobalSection
+EndGlobal
