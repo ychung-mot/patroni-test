@@ -10,33 +10,41 @@ namespace SimpleTest
         static int _seconds = 30;
         static void Main(string[] args)
         {
-            var context = new HetsContext(GetConnectionString());
-
             Console.WriteLine("Test started.");
-            UpdateSurname(context);
-            Console.WriteLine("Test finished and sleeping 1 hour.");
-            
+            UpdateSurname();
+
+            Console.WriteLine("Test finished and sleeping 1 hour for review.");            
             Thread.Sleep(_seconds * 60 * 1000);
         }
 
-        static void UpdateSurname(HetsContext context)
+        static void UpdateSurname()
         {
-            using (IDbContextTransaction transaction = context.Database.BeginTransaction())
+            try
             {
-                var surname = "CHUNG-" + DateTime.Now.ToString("hh:mm:ss");
+                var context = new HetsContext(GetConnectionString());
 
-                Console.WriteLine($"Updating surname to {surname}.");
-                var count = context.Database.ExecuteSqlCommand($@"
+                using (IDbContextTransaction transaction = context.Database.BeginTransaction())
+                {
+                    var surname = "CHUNG-" + DateTime.Now.ToString("hh:mm:ss");
+
+                    Console.WriteLine($"Updating surname to {surname}.");
+                    var count = context.Database.ExecuteSqlCommand($@"
                     UPDATE ""HET_USER"" 
                     SET ""SURNAME"" = {surname}, 
                         ""CONCURRENCY_CONTROL_NUMBER"" = ""CONCURRENCY_CONTROL_NUMBER"" + 1 
                     WHERE ""SM_USER_ID"" = 'YCHUNG' 
                 ");
 
-                Console.WriteLine($"Sleeping {_seconds} seconds.");
-                Thread.Sleep(_seconds * 1000);
+                    Console.WriteLine($"Sleeping {_seconds} seconds.");
+                    Thread.Sleep(_seconds * 1000);
 
-                transaction.Commit();
+                    transaction.Commit();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
 
